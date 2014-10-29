@@ -8,7 +8,7 @@ def match(tree, query):
     return boolean indicating if all
     elements of query match tree
   '''
-  for k, v in query.items():
+  for k, v in query.iteritems():
     if k not in tree:
       return False
     if type(v) == dict:
@@ -45,10 +45,10 @@ class DDB(object):
     return self.store[index]
 
   def select(self, query):
-    return DDB([i for i in self.store if match(i, query)])
+    return DDB(i for i in self.store if match(i, query))
 
   def map(self, transform):
-    return DDB([transform(i) for i in self.store])
+    return DDB(transform(i) for i in self.store)
 
   def insert(self, item):
     if type(item) == list:
